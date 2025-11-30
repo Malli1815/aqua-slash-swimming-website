@@ -1,0 +1,340 @@
+/* -----------------------
+   Variables & base reset
+   ----------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+:root {
+  --bg-color: #000;
+  --snd-bg-color: #111;
+  --text-color: #fff;
+  --main-color: #45ffca; /* green used across site */
+}
+
+/* layout basics */
+html { font-size: 62.5%; overflow-x: hidden; }
+body { background: var(--bg-color); color: var(--text-color); }
+section { min-height: 100vh; padding: 10rem 8% 2rem; }
+
+/* -----------------------
+   Header / nav
+   ----------------------- */
+header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 6%;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+}
+
+.logo {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: var(--text-color);
+}
+.logo span { color: var(--main-color); }
+
+#menu-icon {
+  font-size: 3rem;
+  color: var(--text-color);
+  cursor: pointer;
+  display: none; /* shown on small screens */
+}
+
+.navbar {
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+}
+.navbar a {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-color);
+  border-bottom: 3px solid transparent;
+  padding-bottom: 0.3rem;
+}
+.navbar a:hover,
+.navbar a.active { color: var(--main-color); border-bottom-color: var(--main-color); }
+
+.top-btn .nav-btn {
+  padding: 1rem 2rem;
+  border: 2px solid var(--main-color);
+  border-radius: 1rem;
+  color: var(--main-color);
+  font-weight: 700;
+}
+.top-btn .nav-btn:hover {
+  background: var(--main-color);
+  color: #000;
+  box-shadow: 0 0 1.6rem var(--main-color);
+}
+
+/* -----------------------
+   Home
+   ----------------------- */
+.home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  padding-top: 9rem;
+}
+
+.home-text {
+  flex: 1;
+  max-width: 650px;
+}
+.home-text h3 { font-size: 2.4rem; margin-bottom: .6rem; color: #ddd; }
+.home-text h1 { font-size: 4.8rem; margin-bottom: .8rem; color: var(--main-color); line-height: 1.05; }
+.home-text .multiple-text { color: var(--main-color); font-weight: 700; }
+
+.home-text p { font-size: 1.6rem; color: #cfcfcf; margin: 1rem 0; }
+.btn {
+  display: inline-block;
+  padding: .9rem 2rem;
+  background: var(--main-color);
+  color: #000;
+  border-radius: .8rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* home image and badge */
+.home-img {
+  position: relative;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.home-img .main-photo {
+  width: 100%;
+  max-width: 520px;
+  border-radius: 1rem;
+  display: block;
+}
+
+/* small badge image placed at bottom-right corner of main photo */
+.home-badge {
+  position: absolute;
+  right: calc(50% - 60px); /* shift relative to center to appear on image */
+  bottom: 8%;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 4px solid rgba(255,255,255,0.08);
+  object-fit: cover;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+  background: #fff;
+}
+
+/* large faint background word */
+.home-img::before {
+  content: 'SWIMMING';
+  position: absolute;
+  top: 8%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  font-size: 12rem;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--text-color);
+  opacity: 0;
+  z-index: -1;
+  color: rgba(69,255,202,0.05);
+}
+
+/* -----------------------
+   Services — force 3 per row on desktop
+   ----------------------- */
+.services { background: var(--snd-bg-color); padding-bottom: 6rem; }
+.heading { text-align: center; font-size: 3.2rem; margin-bottom: 2rem; color: #fff; }
+
+/* 3 columns on wide screens; fallback to 2 on medium and 1 on small */
+.services-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* exactly 3 images per row on desktop */
+  gap: 2.4rem;
+  margin-top: 3rem;
+}
+.row {
+  background: #111;
+  padding: 1.6rem;
+  border-radius: 1.8rem;
+  box-shadow: 0 0 8px rgba(69,255,202,0.04);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+.row img { width: 100%; height: 200px; object-fit: cover; border-radius: 1.2rem; margin-bottom: .8rem; }
+.row h4 { font-size: 2rem; color: #fff; margin-top: .6rem; }
+.row:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(0,0,0,0.6); }
+
+/* -----------------------
+   About
+   ----------------------- */
+.about { display: flex; gap: 3rem; align-items: center; justify-content: center; padding: 6rem 8%; }
+.about-img img { width: 100%; max-width: 520px; border-radius: 1rem; border: 2px solid rgba(255,255,255,0.06); }
+.about-content { max-width: 640px; }
+.about-content .heading { font-size: 3rem; margin-bottom: 1rem; }
+.about-content p { color: #cfcfcf; margin: 1rem 0; font-size: 1.6rem; }
+
+/* -----------------------
+   Plans
+   ----------------------- */
+.plans { padding-bottom: 6rem; }
+.plans-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2.4rem;
+  margin-top: 3rem;
+}
+.box {
+  padding: 2.4rem;
+  background: #0b0b0b;
+  border-radius: 2rem;
+  box-shadow: 0 6px 18px rgba(69,255,202,0.03);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.box h3 { font-size: 2.6rem; margin-bottom: .6rem; color: #fff; }
+.box h2 { font-size: 2.8rem; margin-bottom: 1rem; color: #fff; }
+.box ul { margin: 1rem 0 1.2rem 1.2rem; }
+.box ul li { list-style: disc; margin-bottom: .8rem; color: #ccc; font-size: 1.6rem; }
+
+/* GREEN Join Now button (styled like top .btn) */
+.box a.plan-btn {
+  display: inline-block;
+  padding: .9rem 1.6rem;
+  background: var(--main-color);
+  color: #000;
+  border-radius: .8rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.box a.plan-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(69,255,202,0.12);
+}
+
+.box:hover { transform: translateY(-6px); border: 1px solid rgba(69,255,202,0.12); }
+
+/* -----------------------
+   Reviews
+   ----------------------- */
+.reviews { padding: 4rem 8%; color: #bbb; text-align: center; background: linear-gradient(180deg, rgba(0,0,0,0), rgba(255,255,255,0.01)); }
+.reviews .heading { margin-bottom: 2.4rem; font-size: 3rem; color: #fff; }
+
+.reviews-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  align-items: stretch;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.review-card {
+  background: #0b0b0b;
+  border-radius: 1.2rem;
+  padding: 2rem;
+  text-align: left;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.review-card .stars {
+  color: var(--main-color);
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+}
+.review-card .review-text {
+  color: #dcdcdc;
+  font-size: 1.5rem;
+  margin-bottom: 1.2rem;
+  line-height: 1.5;
+}
+.review-card .reviewer {
+  color: #aeb2b6;
+  font-weight: 700;
+  margin-top: 1rem;
+  text-align: right;
+}
+
+/* -----------------------
+   Responsive
+   ----------------------- */
+@media (max-width: 1100px) {
+  .services-content { grid-template-columns: repeat(2, 1fr); } /* 2 per row on medium screens */
+  .reviews-content { grid-template-columns: repeat(2, 1fr); }
+  .home-img .main-photo { max-width: 420px; }
+  .home-badge { right: 10%; width: 90px; height: 90px; }
+}
+@media (max-width: 900px) {
+  header { padding: 1.2rem 3%; }
+  .home { flex-direction: column-reverse; padding-top: 7rem; gap: 2rem; }
+  .home-text h1 { font-size: 3.2rem; }
+  .home-img::before { font-size: 8rem; left: 50%; top: 0; transform: translate(-50%, 0); }
+
+  /* show menu icon and hide navbar by default */
+  #menu-icon { display: block; }
+  .navbar {
+    position: fixed;
+    top: 78px;
+    right: -100%;
+    background: rgba(0,0,0,0.95);
+    height: calc(100vh - 78px);
+    width: 70%;
+    flex-direction: column;
+    padding: 2.5rem 2rem;
+    gap: 1.6rem;
+    transition: right 0.3s ease;
+    z-index: 999;
+  }
+  .navbar.active { right: 0; }
+  .navbar a { font-size: 1.8rem; color: #ddd; }
+  .top-btn { display: none; }
+
+  .services-content { grid-template-columns: 1fr; } /* single column on small */
+  .reviews-content { grid-template-columns: 1fr; }
+  .about { flex-direction: column; }
+}
+/* FORCE-REMOVE white circle / badge / glow in home image area */
+.home-img::before {
+  display: none !important;     /* remove any pseudo-element */
+  content: none !important;
+}
+
+.home-badge {
+  display: none !important;     /* hide the small badge image if it's the white circle */
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* make sure main photo is visible and has no white background */
+.main-photo {
+  display: block !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* extra: if any ancestor has a background circle, force plain background */
+.home-img, .home {
+  background: transparent !important;
+}
+
